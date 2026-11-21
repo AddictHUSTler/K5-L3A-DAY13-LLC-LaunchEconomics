@@ -19,17 +19,17 @@ BASELINE = 12000    # đồng cho 1 yêu cầu khi nhân viên tự làm (6 phú
 def so_lan_chay_ky_vong(p, k=None):
     """Số lần chạy trung bình cho 1 yêu cầu khi mỗi lần đúng với xác suất p.
     k = số lần chạy tối đa; k=None nghĩa là chạy lại đến khi đúng."""
-    raise NotImplementedError('VIẾT Ở ĐÂY')
+    return 1 / p if k is None else (1 - (1 - p) ** k) / p
 
 
 def ti_le_thanh_cong(p, k=None):
     """Xác suất yêu cầu thành công sau tối đa k lần chạy."""
-    raise NotImplementedError('VIẾT Ở ĐÂY')
+    return 1.0 if k is None else 1 - (1 - p) ** k
 
 
 def he_so_chi_phi_moi_viec_thanh_cong(p, k=None):
     """Chi phí mỗi việc thành công, tính bằng bội số của giá một lần chạy."""
-    raise NotImplementedError('VIẾT Ở ĐÂY')
+    return so_lan_chay_ky_vong(p, k) / ti_le_thanh_cong(p, k)
 
 
 def kiem_tra_dap_an_biet_truoc():
@@ -50,7 +50,24 @@ def mo_hinh(runs, reqs, gia_vao=26, gia_ra=130, gia_tool=15, luong_phut=2000,
     - thanh_cong: số yêu cầu có ket_qua == 'thanh_cong'.
     - Các tham số giá/hệ số/max_lan_chay dùng cho Nhiệm vụ B (độ nhạy, giới hạn số lần chạy); giữ mặc định ở A2.
     """
-    raise NotImplementedError('VIẾT Ở ĐÂY')
+    reqs = reqs.copy()
+    runs = runs[runs['request_id'].isin(reqs['request_id'])]
+    if max_lan_chay is not None:
+        runs = runs[runs['attempt'] <= max_lan_chay]
+        vuot = reqs['so_lan_chay'] > max_lan_chay
+        reqs.loc[vuot, 'ket_qua'] = 'chuyen_nhan_vien'
+        reqs.loc[vuot, ['phut_xem_lai_simulated', 'phut_lam_lai_simulated']] = 0
+    tien_token = runs['tokens_in'] / 1000 * gia_vao + runs['tokens_out'] / 1000 * gia_ra
+    tien_tool = runs['tool_calls'] * gia_tool
+    xem_lai = reqs['phut_xem_lai_simulated'].sum() * luong_phut * he_so_xem_lai
+    lam_lai = reqs['phut_lam_lai_simulated'].sum() * luong_phut * he_so_lam_lai
+    tong = tien_token.sum() + tien_tool.sum() + xem_lai + lam_lai
+    thanh_cong = (reqs['ket_qua'] == 'thanh_cong').sum()
+    return dict(token=tien_token.sum(), tool=tien_tool.sum(),
+                chay_lai=(tien_token + tien_tool)[runs['attempt'] > 1].sum(),
+                xem_lai=xem_lai, lam_lai=lam_lai, tong=tong,
+                thanh_cong=thanh_cong, cps=tong / thanh_cong,
+                hoa_don_moi_yc=(tien_token.sum() + tien_tool.sum()) / len(reqs))
 
 
 if __name__ == '__main__':
@@ -60,8 +77,45 @@ if __name__ == '__main__':
     ket_qua = mo_hinh(runs, reqs)
     for ten, gia_tri in ket_qua.items():
         print(f'{ten:12s} {gia_tri:>14,.0f}')
-    # TODO CP1 · Nhiệm vụ A3: tính lại theo từng giá trị của cột loai.
-    # TODO CP2 · Nhiệm vụ B: đổi từng yếu tố, ghi vào bảng độ nhạy.
+    # A3: tính lại theo từng loại
+    print(f"cps / hoa_don_moi_yc = {ket_qua['cps'] / ket_qua['hoa_don_moi_yc']:.1f}x")
+    for loai, g in reqs.groupby('loai'):
+        r = mo_hinh(runs, reqs[reqs.loai == loai])
+        print(f"{loai:10s} n={len(g):4d} tc={r['thanh_cong'] / len(g):6.1%} "
+              f"lan_chay={g['so_lan_chay'].mean():.2f} cps={r['cps']:8,.0f} x{r['cps'] / BASELINE:.2f}")
+    # A4: cộng chi phí cố định 40 triệu/tháng cho noi_dia + hang_nang
+    pv = reqs[reqs.loai.isin(['noi_dia', 'hang_nang'])]
+    r = mo_hinh(runs, pv)
+    for ten, kl in [('45.000/thang', 45000), ('mot nua', 22500)]:
+        tc = kl * r['thanh_cong'] / len(reqs)
+        cd = 40_000_000 / tc
+        print(f"A4 {ten}: viec_tc={tc:,.0f} co_dinh={cd:,.0f} tong={r['cps'] + cd:,.0f} x{(r['cps'] + cd) / BASELINE:.2f}")
+    # CP2 · Nhiệm vụ B: độ nhạy
+    goc = ket_qua['cps']
+    kb = [('token x2', dict(gia_vao=52, gia_ra=260)), ('token /2', dict(gia_vao=13, gia_ra=65)),
+          ('xem lai x2', dict(he_so_xem_lai=2)), ('xem lai /2', dict(he_so_xem_lai=.5)),
+          ('lam lai x2', dict(he_so_lam_lai=2)), ('lam lai /2', dict(he_so_lam_lai=.5)),
+          ('luong +25%', dict(luong_phut=2500)), ('toi da 2 lan', dict(max_lan_chay=2)),
+          ('1 lan', dict(max_lan_chay=1))]
+    for ten, kw in kb:
+        c = mo_hinh(runs, reqs, **kw)['cps']
+        print(f'B1 {ten:12s} {c:8,.0f} {c / goc - 1:+.1%}')
+    c = mo_hinh(runs, reqs, gia_vao=52, gia_ra=260, he_so_xem_lai=2)['cps']
+    print(f'B2 token x2 + xem lai x2 {c:,.0f} {c / goc - 1:+.1%}')
+    for k in (1, 2, 3):
+        r = mo_hinh(runs, reqs, max_lan_chay=k)
+        kt = len(reqs) - r['thanh_cong']
+        print(f"B3 k={k} tong={r['tong']:,.0f} khong_tc={kt} he_thong={r['tong'] + BASELINE * kt:,.0f} cps={r['cps']:,.0f}")
+    # B4: xem lai 100% (5 phut/yc co it nhat 1 lan ok), lam lai 9 phut/ca
+    rr = runs[runs.request_id.isin(pv.request_id)]
+    n_ok = rr[rr.status == 'ok'].request_id.nunique()
+    n_ll = (pv.ket_qua == 'lam_lai').sum()
+    rt = mo_hinh(runs, pv)
+    tong = n_ok * 5 * LUONG_PHUT + n_ll * 9 * LUONG_PHUT + rt['token'] + rt['tool']
+    print(f"B4 ok={n_ok} lam_lai={n_ll} tong={tong:,.0f} cps={tong / rt['thanh_cong']:,.0f} x{tong / rt['thanh_cong'] / BASELINE:.2f}")
+    ml = reqs[reqs.ket_qua == 'lam_lai'].phut_lam_lai_simulated.mean()
+    t2 = n_ok * 5 * LUONG_PHUT + n_ll * ml * LUONG_PHUT + rt['token'] + rt['tool']
+    print(f"B4 tham khao lam_lai={ml:.1f} phut: cps={t2 / rt['thanh_cong']:,.0f} x{t2 / rt['thanh_cong'] / BASELINE:.2f}")
     # TODO CP4 · Nhiệm vụ D: cỡ mẫu.
     #   from statsmodels.stats.proportion import proportion_effectsize
     #   from statsmodels.stats.power import NormalIndPower

@@ -2,16 +2,16 @@
 
 ## Thông tin nhóm
 
-- Tên nhóm:
-- Lớp: L3A hoặc L3B
-- Repo nhóm: `K5-L3A-DAY13-TenNhom-LaunchEconomics` (xem [SUBMISSION.md](SUBMISSION.md))
+- Tên nhóm: LLC
+- Lớp: L3A
+- Repo nhóm: `K5-L3A-DAY13-LLC-LaunchEconomics` (xem [SUBMISSION.md](SUBMISSION.md))
 - URL repo, nhánh nộp, commit chốt:
 
 ## Thành viên
 
 | STT | Họ tên | MSSV | Email | GitHub | Vai trò |
 | --: | ------ | ---- | ----- | ------ | ------- |
-|   1 |        |      |       |        |         |
+|   1 |Nguyeẽn Trọng Phương Bách        |2A202603716      | bachn2880@gmail.com      | AddictHUSTler       | Người viết code và người kiểm số       |
 |   2 |        |      |       |        |         |
 |   3 |        |      |       |        |         |
 |   4 |        |      |       |        |         |
