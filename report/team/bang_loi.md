@@ -18,32 +18,32 @@ Người gắn nhãn 1: Nguyễn Trọng Phương Bách · Người gắn nhãn 
 
 | Ca | Nhãn người 1 | Nhãn người 2 | Trùng? | Nhãn thống nhất |
 | --: | --- | --- | --- | --- |
-| 1 | ... | Do người dùng | ... | ... |
-| 2 | ... | Hệ thống | ... | ... |
-| 3 | ... | Ngữ cảnh | ... | ... |
-| 4 | ... | Giới hạn hệ thống | ... | ... |
-| 5 | ... | Ngầm | ... | ... |
-| 6 | ... | Do người dùng | ... | ... |
-| 7 | ... | Hệ thống | ... | ... |
-| 8 | ... | Hệ thống | ... | ... |
-| 9 | ... | Do người dùng | ... | ... |
-| 10 | ... | Ngữ cảnh | ... | ... |
-| 11 | ... | Giới hạn hệ thống | ... | ... |
-| 12 | ... | Ngầm | ... | ... |
-| 13 | ... | Giới hạn hệ thống | ... | ... |
-| 14 | ... | Do người dùng | ... | ... |
-| 15 | ... | Hệ thống | ... | ... |
-| 16 | ... | Ngữ cảnh | ... | ... |
-| 17 | ... | Ngầm | ... | ... |
-| 18 | ... | Ngữ cảnh | ... | ... |
-| 19 | ... | Giới hạn hệ thống | ... | ... |
-| 20 | ... | Hệ thống | ... | ... |
+| 1 | Do người dùng | Do người dùng | Có | Do người dùng |
+| 2 | Hệ thống | Hệ thống | Có | Hệ thống |
+| 3 | Ngữ cảnh | Ngữ cảnh | Có | Ngữ cảnh |
+| 4 | Giới hạn hệ thống | Giới hạn hệ thống | Có | Giới hạn hệ thống |
+| 5 | Ngầm | Ngầm | Có | Ngầm |
+| 6 | Do người dùng | Do người dùng | Có | Do người dùng |
+| 7 | Hệ thống | Hệ thống | Có | Hệ thống |
+| 8 | Hệ thống | Hệ thống | Có | Hệ thống |
+| 9 | Do người dùng | Do người dùng | Có | Do người dùng |
+| 10 | Ngữ cảnh | Ngữ cảnh | Có | Ngữ cảnh |
+| 11 | Giới hạn hệ thống | Giới hạn hệ thống | Có | Giới hạn hệ thống |
+| 12 | Ngầm | Ngầm | Có | Ngầm |
+| 13 | Hệ thống | Giới hạn hệ thống | Không | Giới hạn hệ thống |
+| 14 | Do người dùng | Do người dùng | Có | Do người dùng |
+| 15 | Hệ thống | Hệ thống | Có | Hệ thống |
+| 16 | Ngữ cảnh | Ngữ cảnh | Có | Ngữ cảnh |
+| 17 | Ngầm | Ngầm | Có | Ngầm |
+| 18 | Ngữ cảnh | Ngữ cảnh | Có | Ngữ cảnh |
+| 19 | Giới hạn hệ thống | Giới hạn hệ thống | Có | Giới hạn hệ thống |
+| 20 | Hệ thống | Hệ thống | Có | Hệ thống |
 
-**Tỉ lệ đồng thuận:** ... / 20 = ...% (chưa tính được: bộ nhãn của người gắn nhãn 1 chưa có vì người gắn nhãn 1 tạm dừng; sẽ bổ sung khi người gắn nhãn 1 quay lại và tự gắn 20 ca.)
+**Tỉ lệ đồng thuận:** 19 / 20 = 95% (đạt ngưỡng 80%). Ca không trùng: ca 13.
 
 ## Quy tắc phân biệt cho các ca không trùng
 
-Mỗi ca không trùng một câu. Đồng thuận dưới 80% thì ghi định nghĩa đã viết lại. Hiện chưa có ca không trùng nào được xác định, vì chưa có bộ nhãn thứ hai. Các quy tắc phân biệt nhanh dưới đây dùng khi so nhãn:
+Mỗi ca không trùng một câu. Đồng thuận dưới 80% thì ghi định nghĩa đã viết lại. Ca không trùng duy nhất là ca 13: người gắn nhãn 1 ghi Hệ thống, người gắn nhãn 2 ghi Giới hạn hệ thống. Nhãn thống nhất là **Giới hạn hệ thống**, vì ngoài phạm vi (bảo hiểm hàng hoá của đối tác) là giới hạn kể cả khi trợ lý trả lời chung chung thay vì từ chối rõ ràng; việc trả lời kém là việc cần cải thiện, ghi ở cột khắc phục. Các quy tắc phân biệt nhanh:
 
 - **Hệ thống và Giới hạn hệ thống:** nếu nằm ngoài phạm vi hoặc dữ liệu và trợ lý thừa nhận không làm được, chuyển nhân viên (ca 4, 11, 19) thì là **Giới hạn hệ thống**. Ngoài phạm vi là giới hạn kể cả khi trợ lý xử lý kém (ca 13). Nếu trợ lý làm sai logic, API hoặc chính sách (ca 2, 7, 8, 15, 20) thì là **Hệ thống**.
 - **Do người dùng và Ngữ cảnh:** nếu khách nhập hoặc chọn sai (ca 1, 6, 9, 14) thì là **Do người dùng**; việc trợ lý không gợi ý lại là việc cần cải thiện, ghi ở cột khắc phục. Nếu khách thao tác đúng và trợ lý làm đúng thiết kế nhưng cách phản hồi, thời điểm hoặc thông tin xung quanh gây hiểu lầm (ca 3, 10, 16, 18) thì là **Ngữ cảnh**.

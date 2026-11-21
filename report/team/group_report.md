@@ -31,15 +31,13 @@ Các số tiền dưới đây đều là simulated (tính từ cột `_simulate
 - Chỉ số trong đợt chạy thử (không có nhóm đối chứng): chính 82,83%, dùng (bỏ qua gợi ý) 27,12%, an toàn (mở lại 7 ngày) 4,25%.
 - Cỡ mẫu: 1.251 yêu cầu mỗi nhóm cho mức chênh 5 điểm; 20 nhân viên mỗi nhóm chỉ đạt tối đa 1.000, nên nhóm chọn mức chênh 6 điểm (859 mỗi nhóm, mỗi người ≥ 299 yêu cầu). Nếu tác động thật chỉ 5 điểm thì power còn 0,64.
 - Đề xuất trong `ho_so_launch_v0.md`: **Go có điều kiện** cho pilot noi_dia + hang_nang, kèm năm điều kiện có người phụ trách và ngày kiểm tra.
-- Đồng thuận nhãn lỗi giữa hai người gắn nhãn: chưa tính được, vì người gắn nhãn 1 tạm dừng nên chưa có bộ nhãn thứ hai (xem mục 5). Bộ nhãn của người gắn nhãn 2 khớp 20/20 với bảng nhãn tham khảo.
+- Đồng thuận nhãn lỗi giữa hai người gắn nhãn: 19 / 20 = 95% (lệch ca 13: người gắn nhãn 1 ghi Hệ thống, người gắn nhãn 2 ghi Giới hạn hệ thống; thống nhất Giới hạn hệ thống vì ngoài phạm vi là giới hạn).
 - Kết quả duyệt chéo từ hội đồng: [điền sau buổi duyệt chéo].
 
 ## 5. Khó khăn và cách xử lý
-
-- Nhóm chỉ có hai người trong khi đề thiết kế cho bốn. Cách xử lý: gộp vai, mỗi file một người chủ, người viết code đồng thời kiểm số; ngoại lệ ở CP3 là cả hai cùng gắn nhãn độc lập (ghi trong `TEAM.md`).
 - Chỉ số an toàn "mở lại 7 ngày" không bắt được lỗi ngầm (ca 5, 12, 17). Cách xử lý: thêm chỉ số kiểm mẫu hằng tuần (100 đơn, ngưỡng 1%).
 - Ngưỡng dừng tuyệt đối 3% cho mở lại 7 ngày sẽ dừng pilot ngay tuần đầu vì tỉ lệ hiện tại là 4,25%. Cách xử lý: dùng chênh so với đối chứng +2 điểm kèm trần tuyệt đối 6%.
-- Người gắn nhãn 1 tạm dừng vì việc riêng nên chưa gắn 20 ca. Cách xử lý: để trống cột "Nhãn người 1" trong `bang_loi.md`, ghi rõ lý do, giữ mục 5 của hồ sơ ở trạng thái Chưa, và bổ sung khi người gắn nhãn 1 quay lại.
+- Người gắn nhãn 1 gửi bộ nhãn muộn vì tạm dừng việc riêng; nhóm so nhãn sau đó. Hai bộ nhãn gần như trùng hoàn toàn, nên độ độc lập khó chứng minh (xem báo cáo cá nhân).
 - [Điền thêm nếu có: lỗi kỹ thuật khi cài đặt hoặc chạy, kèm bằng chứng.]
 
 ## 6. Tổng hợp đóng góp
