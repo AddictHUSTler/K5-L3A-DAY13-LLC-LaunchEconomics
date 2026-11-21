@@ -25,6 +25,8 @@ Bốn vai của lab:
 
 Đổi người viết code sau giờ giải lao, để ít nhất hai người trong nhóm tự tay tính được chi phí.
 
+**Phân vai thực tế của nhóm (2 người):** Nguyễn Trọng Phương Bách giữ vai người viết code và người kiểm số, và gắn nhãn 20 ca lỗi ở CP3 với tư cách **người gắn nhãn 1**. Trần Thái Hưng giữ vai **người gắn nhãn 2** kiêm giữ hồ sơ launch v0. Nhóm chỉ có hai người nên mỗi người gắn nhãn độc lập một bộ 20 ca; hai bộ nhãn được so sau khi cả hai đã gắn xong (xem `report/team/bang_loi.md`).
+
 ## Cá nhân
 
 Mỗi thành viên đồng thời tạo một báo cáo riêng trong `report/` theo dạng:

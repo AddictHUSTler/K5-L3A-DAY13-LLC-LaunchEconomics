@@ -4,7 +4,7 @@
 
 ## Hai bộ nhãn độc lập
 
-Người gắn nhãn 1: ... · Người gắn nhãn 2: ... (gắn trong 8 phút, không trao đổi)
+Người gắn nhãn 1: Nguyễn Trọng Phương Bách · Người gắn nhãn 2: Trần Thái Hưng (gắn trong 8 phút, không trao đổi)
 
 | Ca | Nhãn người 1 | Nhãn người 2 | Trùng? | Nhãn thống nhất |
 | --: | --- | --- | --- | --- |
