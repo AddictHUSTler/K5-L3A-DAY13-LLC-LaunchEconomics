@@ -12,7 +12,7 @@
 | STT | Họ tên | MSSV | Email | GitHub | Vai trò |
 | --: | ------ | ---- | ----- | ------ | ------- |
 |   1 |Nguyeẽn Trọng Phương Bách        |2A202603716      | bachn2880@gmail.com      | AddictHUSTler       | Người viết code và người kiểm số       |
-|   2 |        |      |       |        |         |
+|   2 | Trần Thái Hưng | 2A202603557 |       | ghism137 | Người gắn nhãn 2, giữ hồ sơ launch v0 |
 |   3 |        |      |       |        |         |
 |   4 |        |      |       |        |         |
 

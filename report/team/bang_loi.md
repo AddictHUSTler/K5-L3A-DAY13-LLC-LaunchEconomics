@@ -8,26 +8,26 @@ Người gắn nhãn 1: ... · Người gắn nhãn 2: ... (gắn trong 8 phút,
 
 | Ca | Nhãn người 1 | Nhãn người 2 | Trùng? | Nhãn thống nhất |
 | --: | --- | --- | --- | --- |
-| 1 | ... | ... | ... | ... |
-| 2 | ... | ... | ... | ... |
-| 3 | ... | ... | ... | ... |
-| 4 | ... | ... | ... | ... |
-| 5 | ... | ... | ... | ... |
-| 6 | ... | ... | ... | ... |
-| 7 | ... | ... | ... | ... |
-| 8 | ... | ... | ... | ... |
-| 9 | ... | ... | ... | ... |
-| 10 | ... | ... | ... | ... |
-| 11 | ... | ... | ... | ... |
-| 12 | ... | ... | ... | ... |
-| 13 | ... | ... | ... | ... |
-| 14 | ... | ... | ... | ... |
-| 15 | ... | ... | ... | ... |
-| 16 | ... | ... | ... | ... |
-| 17 | ... | ... | ... | ... |
-| 18 | ... | ... | ... | ... |
-| 19 | ... | ... | ... | ... |
-| 20 | ... | ... | ... | ... |
+| 1 | ... | Do người dùng | ... | ... |
+| 2 | ... | Hệ thống | ... | ... |
+| 3 | ... | Ngữ cảnh | ... | ... |
+| 4 | ... | Giới hạn hệ thống | ... | ... |
+| 5 | ... | Ngầm | ... | ... |
+| 6 | ... | Do người dùng | ... | ... |
+| 7 | ... | Hệ thống | ... | ... |
+| 8 | ... | Hệ thống | ... | ... |
+| 9 | ... | Do người dùng | ... | ... |
+| 10 | ... | Ngữ cảnh | ... | ... |
+| 11 | ... | Giới hạn hệ thống | ... | ... |
+| 12 | ... | Ngầm | ... | ... |
+| 13 | ... | Giới hạn hệ thống | ... | ... |
+| 14 | ... | Do người dùng | ... | ... |
+| 15 | ... | Hệ thống | ... | ... |
+| 16 | ... | Ngữ cảnh | ... | ... |
+| 17 | ... | Ngầm | ... | ... |
+| 18 | ... | Ngữ cảnh | ... | ... |
+| 19 | ... | Giới hạn hệ thống | ... | ... |
+| 20 | ... | Hệ thống | ... | ... |
 
 **Tỉ lệ đồng thuận:** ... / 20 = ...%
 
@@ -43,8 +43,8 @@ Cách phát hiện phải đo được (event, ngưỡng, tần suất). Ngườ
 
 | Ca | Loại lỗi | Phát hiện bằng gì | Khắc phục thế nào | Ai phụ trách |
 | --: | --- | --- | --- | --- |
-| ... | Do người dùng | ... | ... | ... |
-| ... | Hệ thống | ... | ... | ... |
-| ... | Ngữ cảnh | ... | ... | ... |
-| ... | Giới hạn hệ thống | ... | ... | ... |
-| ... | Ngầm | ... | ... | ... |
+| 1 | Do người dùng | Event `input_validation_failed` (số tài khoản sai độ dài/định dạng) và lệnh hoàn bị ngân hàng trả lỗi; cảnh báo khi quá 2% yêu cầu/ngày | Kiểm tra độ dài/định dạng ngay khi nhập; hiển thị tên chủ tài khoản đã che một phần để khách xác nhận trước khi tạo lệnh; thông báo lỗi nêu rõ cách nhập lại | PM trợ lý hoàn phí |
+| 20 | Hệ thống | Đối soát hằng ngày: đơn có hơn 1 lệnh hoàn; cảnh báo khi số lệnh hoàn/đơn > 1 | Thêm khoá chống trùng (idempotency key) cho mỗi lệnh hoàn; gửi lại cùng khoá thì trả kết quả cũ, không tạo lệnh mới. Hoàn lại 2 lần đã phát sinh | Kỹ sư trưởng agent |
+| 10 | Ngữ cảnh | Event `ticket_reopened` sau từ chối vì bất khả kháng đúng chính sách; cảnh báo khi tỉ lệ mở lại nhóm này vượt 10% số ca từ chối theo tuần (ngưỡng đề xuất, chỉnh theo dữ liệu pilot) | Hiện lưu ý "cam kết không áp dụng khi bất khả kháng" khi có cảnh báo thời tiết; tin từ chối nêu rõ căn cứ và điều khoản | Trưởng nhóm CSKH |
+| 13 | Giới hạn hệ thống | Event `handoff_to_staff` với `reason = ngoai_pham_vi`; rà soát 20 ca/tuần, ngưỡng 0 ca thiếu câu "không xử lý được" | Nhận diện ý định ngoài phạm vi; luôn nói rõ "tôi không xử lý được yêu cầu này" và hướng khách tới kênh của công ty bảo hiểm đối tác | PM trợ lý hoàn phí |
+| 17 | Ngầm | Không tự phát hiện; kiểm mẫu 100 đơn/tuần, đối soát giá đã tính với bảng giá hiện hành, cảnh báo khi >1% đơn lệch | Gắn phiên bản bảng giá vào khoá cache; khi đổi bảng giá thì xoá cache; đặt TTL ngắn; cảnh báo khi phiên bản cache ≠ phiên bản hiện hành; hoàn bù 212 đơn | Kế toán trưởng |
