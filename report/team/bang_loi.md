@@ -2,6 +2,16 @@
 
 20 ca lỗi nằm trong `docs/Ngay13_Lab13_De_bai_hoc_vien.docx`. Năm loại theo Google PAIR: **Do người dùng · Hệ thống · Ngữ cảnh · Giới hạn hệ thống · Ngầm**. Gắn nhãn theo nguyên nhân gốc, không theo chỗ cần sửa.
 
+## Định nghĩa năm loại lỗi
+
+| Loại lỗi | Định nghĩa | Dấu hiệu nhận biết cốt lõi |
+| :--- | :--- | :--- |
+| **Do người dùng** | Người dùng nhập sai, chọn sai luồng hoặc cung cấp thông tin không khớp yêu cầu. | Đầu vào từ khách hàng không hợp lệ (sai định dạng, chọn nhầm nút/danh mục). |
+| **Hệ thống** | Hệ thống trả lời sai, thực thi sai logic/công cụ hoặc vi phạm thiết kế và chính sách; sai đã lộ ra (có người thấy). | Lỗi kỹ thuật, gọi sai tham số, ảo giác chính sách, xử lý sai nghiệp vụ. |
+| **Ngữ cảnh** | Hệ thống làm đúng thiết kế nhưng người dùng thấy sai do kỳ vọng hoặc hoàn cảnh thực tế khác biệt. | Trợ lý làm đúng quy trình, nhưng thông tin giao tiếp thiếu giải thích hoặc trải nghiệm gây hiểu lầm. |
+| **Giới hạn hệ thống** | Hệ thống không thể xử lý do thiếu dữ liệu, ngoài phạm vi nghiệp vụ hoặc không hỗ trợ định dạng đầu vào. | Trợ lý chạm ranh giới năng lực (dữ liệu quá hạn, đối tác ngoài, file âm thanh). |
+| **Ngầm** | Có sai sót xảy ra nhưng cả người dùng lẫn hệ thống đều không nhận ra ngay lúc đó. | Không có khiếu nại và không có cảnh báo tự động; chỉ phát hiện khi kiểm tra mẫu hoặc kiểm toán. |
+
 ## Hai bộ nhãn độc lập
 
 Người gắn nhãn 1: Nguyễn Trọng Phương Bách · Người gắn nhãn 2: Trần Thái Hưng (gắn trong 8 phút, không trao đổi)
@@ -29,13 +39,15 @@ Người gắn nhãn 1: Nguyễn Trọng Phương Bách · Người gắn nhãn 
 | 19 | ... | Giới hạn hệ thống | ... | ... |
 | 20 | ... | Hệ thống | ... | ... |
 
-**Tỉ lệ đồng thuận:** ... / 20 = ...%
+**Tỉ lệ đồng thuận:** ... / 20 = ...% (chưa tính được: bộ nhãn của người gắn nhãn 1 chưa có vì người gắn nhãn 1 tạm dừng; sẽ bổ sung khi người gắn nhãn 1 quay lại và tự gắn 20 ca.)
 
 ## Quy tắc phân biệt cho các ca không trùng
 
-Mỗi ca không trùng một câu. Đồng thuận dưới 80% thì ghi định nghĩa đã viết lại.
+Mỗi ca không trùng một câu. Đồng thuận dưới 80% thì ghi định nghĩa đã viết lại. Hiện chưa có ca không trùng nào được xác định, vì chưa có bộ nhãn thứ hai. Các quy tắc phân biệt nhanh dưới đây dùng khi so nhãn:
 
-- ...
+- **Hệ thống và Giới hạn hệ thống:** nếu nằm ngoài phạm vi hoặc dữ liệu và trợ lý thừa nhận không làm được, chuyển nhân viên (ca 4, 11, 19) thì là **Giới hạn hệ thống**. Ngoài phạm vi là giới hạn kể cả khi trợ lý xử lý kém (ca 13). Nếu trợ lý làm sai logic, API hoặc chính sách (ca 2, 7, 8, 15, 20) thì là **Hệ thống**.
+- **Do người dùng và Ngữ cảnh:** nếu khách nhập hoặc chọn sai (ca 1, 6, 9, 14) thì là **Do người dùng**; việc trợ lý không gợi ý lại là việc cần cải thiện, ghi ở cột khắc phục. Nếu khách thao tác đúng và trợ lý làm đúng thiết kế nhưng cách phản hồi, thời điểm hoặc thông tin xung quanh gây hiểu lầm (ca 3, 10, 16, 18) thì là **Ngữ cảnh**.
+- **Hệ thống và Ngầm:** nếu sai đã lộ ra (có người thấy, ví dụ ca 8, 15) thì là **Hệ thống**; nếu sai trôi qua không khiếu nại, không cảnh báo và chỉ lộ ra khi kiểm tra mẫu (ca 5, 12, 17) thì là **Ngầm**, kể cả khi sai chỉ về chi phí như ca 12.
 
 ## Bảng khắc phục cho 5 ca, mỗi loại một ca
 
