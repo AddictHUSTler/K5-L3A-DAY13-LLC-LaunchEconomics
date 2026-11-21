@@ -116,6 +116,28 @@ if __name__ == '__main__':
     ml = reqs[reqs.ket_qua == 'lam_lai'].phut_lam_lai_simulated.mean()
     t2 = n_ok * 5 * LUONG_PHUT + n_ll * ml * LUONG_PHUT + rt['token'] + rt['tool']
     print(f"B4 tham khao lam_lai={ml:.1f} phut: cps={t2 / rt['thanh_cong']:,.0f} x{t2 / rt['thanh_cong'] / BASELINE:.2f}")
-    # TODO CP4 · Nhiệm vụ D: cỡ mẫu.
-    #   from statsmodels.stats.proportion import proportion_effectsize
-    #   from statsmodels.stats.power import NormalIndPower
+    # CP4 · Nhiệm vụ D: cỡ mẫu (stdlib, không cần statsmodels)
+    from statistics import NormalDist
+    nd = NormalDist()
+
+    def co_mau(p1, p2, alpha=0.05, power=0.8):
+        za, zb = nd.inv_cdf(1 - alpha / 2), nd.inv_cdf(power)
+        pb = (p1 + p2) / 2
+        return math.ceil((za * math.sqrt(2 * pb * (1 - pb))
+                          + zb * math.sqrt(p1 * (1 - p1) + p2 * (1 - p2))) ** 2 / (p2 - p1) ** 2)
+
+    ICC = 0.02
+    n5 = co_mau(0.70, 0.75)
+    de75 = 1 + 74 * ICC
+    print(f'D1a theo yeu cau: {n5} moi nhom')
+    print(f'D1b m=75: DE={de75:.2f} n={math.ceil(n5 * de75)} moi nhom -> {math.ceil(n5 * de75 / 75)} nguoi/nhom, tong {2 * math.ceil(n5 * de75 / 75)} > 40')
+    print(f'D1c 20 nguoi/nhom: toi da {20 / ICC:.0f} < {n5}')
+    print(f'D1d 6 depot/nhom: toi da {6 / ICC:.0f}')
+    n6 = co_mau(0.70, 0.76)
+    m = math.ceil(n6 * (1 - ICC) / (20 - n6 * ICC))
+    print(f'D1e 6 diem: n={n6}/nhom; m>={m} yc/nguoi (DE={1 + (m - 1) * ICC:.2f})')
+    # power neu chon n=859/nhom nhung tac dong that chi 5 diem (Cohen h)
+    h = 2 * math.asin(math.sqrt(0.75)) - 2 * math.asin(math.sqrt(0.70))
+    pw = nd.cdf(h * math.sqrt(n6 / 2) - nd.inv_cdf(0.975))
+    print(f'power neu tac dong that 5 diem, n={n6}: {pw:.2f}')
+    print(f'mo_lai_trong_7_ngay hien tai: {reqs.mo_lai_trong_7_ngay.mean():.2%} ({reqs.mo_lai_trong_7_ngay.sum()}/{len(reqs)})')
